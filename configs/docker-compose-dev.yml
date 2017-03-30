@@ -1,0 +1,49 @@
+version: '3'
+services:
+  main:
+    build:
+      context: ../../../
+      dockerfile: Dockerfile-dev
+    image: '${COMPOSE_PROJECT_NAME}-service:latest'
+    container_name: '${COMPOSE_PROJECT_NAME}-service'
+    ports:
+      - '${PORT-8101}:80'
+      - '${DEBUG_PORT-8100}:${DEBUG_PORT-8100}'
+    restart: ${AUTO_RESTART}
+    command: ${CUSTOM_CMD}
+    environment:
+      - NODE_ENV=development
+      - PORT=80
+    volumes:
+      - ../../../.babelrc:/ebsa/service/.babelrc
+      - ../../../env.config:/ebsa/service/env.config
+      - ../../../package.json:/ebsa/service/package.json
+      - ../../../yarn.lock:/ebsa/service/yarn.lock
+      - ../../../server:/ebsa/service/server
+      - ../../../configs:/ebsa/service/configs
+    depends_on:
+      - 'redis'
+      - 'mongoimport'
+      - 'mysql'
+  redis:
+    image: 'redis:latest'
+    container_name: '${COMPOSE_PROJECT_NAME}-redis'
+  mongo:
+    image: 'mongo:3.2'
+    container_name: '${COMPOSE_PROJECT_NAME}-mongo'
+  mongoimport:
+    build:
+      context: ../../../
+      dockerfile: configs/Dockerfile-mongoimport
+    image: '${COMPOSE_PROJECT_NAME}-mongoimport:latest'
+    container_name: '${COMPOSE_PROJECT_NAME}-mongoimport'
+    depends_on:
+      - 'mongo'
+  mysql:
+    image: 'mysql:5.6'
+    container_name: '${COMPOSE_PROJECT_NAME}-mysql'
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_DATABASE=default
+    volumes:
+      - ../../../data/mysql:/docker-entrypoint-initdb.d

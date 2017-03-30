@@ -1,0 +1,23 @@
+
+FROM mongo:3.2
+
+ADD data/mongo/[FAKE_DATA].json \
+  data/mongo/[REAL_DATA].json \
+  /tmp/
+CMD mongo [DB_NAME] \
+  --host mongo \
+  --eval "db.dropDatabase();" && \
+  mongoimport \
+  --host mongo \
+  --db [DB_NAME] \
+  --collection [COLLECTION_NAME] \
+  --type json \
+  --jsonArray \
+  --file /tmp/[FAKE_DATA].json && \
+  mongoimport \
+  --host mongo \
+  --db [DB_NAME] \
+  --collection [COLLECTION_NAME] \
+  --type json \
+  --jsonArray \
+  --file /tmp/[REAL_DATA].json

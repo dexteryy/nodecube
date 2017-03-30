@@ -1,0 +1,11 @@
+exports.httpService = require('./build/httpService');
+exports.errorTrigger = require('./build/errorTrigger');
+exports.errorResponse = require('./build/errorResponse');
+exports.logger = require('./build/logger');
+exports.mongo = require('./build/mongo');
+exports.rds = require('./build/rds');
+exports.redis = require('./build/redis');
+exports.oss = require('./build/oss');
+exports.authorization = require('./build/authorization');
+exports.resourceMeta = require('./build/resourceMeta');
+exports.corsManager = require('./build/corsManager');

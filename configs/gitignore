@@ -1,0 +1,10 @@
+node_modules/
+.npm
+*.log
+*.log.*
+*.pid
+env.config
+Dockerfile-dev
+log/
+build/
+coverage/
