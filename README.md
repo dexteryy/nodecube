@@ -36,10 +36,10 @@ Nodecube is a batch of continuously updated base code and configurations for the
 Boilerplate as [library](https://github.com/dexteryy/nodecube/blob/master/src/):
 
 - `httpService` - [example](https://github.com/dexteryy/nodecube-example/blob/master/server/index.js)
-- `errorTrigger` + `errorResponse` - [example](https://github.com/dexteryy/nodecube-example/blob/master/server/api/example/index.js)
+- `errorTrigger` + `errorResponse` - [example](https://github.com/dexteryy/nodecube-example/blob/master/server/api/githubUsers/index.js)
 - `logger`
 - `mongo` / `rds` / `redis` / `oss` - [example](https://github.com/dexteryy/nodecube-example/blob/master/server/utils/connectServices.js)
-- `authorization`
+- `authorization` - [example](https://github.com/dexteryy/nodecube-example/blob/master/server/api/auth/index.js)
 
 
 ## How to create an API service project
@@ -90,8 +90,8 @@ Project-defined compose file ([example](https://github.com/dexteryy/nodecube-exa
 
 ```
 cp ./node_modules/nodecube/configs/docker-compose-dev.override.yml ./
-
 ```
+
 The Dockerfile only for production (or staging) environment
 
 ```
@@ -133,6 +133,12 @@ cp Dockerfile Dockerfile-dev
 ```
 
 Install dependencies: (only for npm scripts)
+
+```bash
+yarn
+```
+
+or
 
 ```bash
 npm install
