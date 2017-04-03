@@ -83,13 +83,13 @@ Use nodecube-cli (TODO) or imitate the [nodecube-example](https://github.com/dex
 Project-defined template file for [env.config][custom.env.sample.config]
 
 ```
-cp ./node_modules/nodecube/configs/env.sample.config ./
+cp ./node_modules/nodecube/configs/env.sample.config ./configs/
 ```
 
 Project-defined compose file ([example](https://github.com/dexteryy/nodecube-example/blob/master/configs/docker-compose-dev.override.yml)) for development evironment, see [Multiple Compose files](https://docs.docker.com/compose/extends/#multiple-compose-files)
 
 ```
-cp ./node_modules/nodecube/configs/docker-compose-dev.override.yml ./
+cp ./node_modules/nodecube/configs/docker-compose-dev.override.yml ./configs/
 ```
 
 The Dockerfile only for production (or staging) environment
@@ -101,7 +101,7 @@ cp ./node_modules/nodecube/configs/Dockerfile ./
 Optionally add [`Dockerfile-mongoimport`](https://github.com/dexteryy/nodecube-example/blob/master/configs/Dockerfile-mongoimport) (for running [mongoimport](https://docs.mongodb.com/manual/reference/program/mongoimport/) in MongoDB container)
 
 ```
-cp ./node_modules/nodecube/configs/Dockerfile-mongoimport ./
+cp ./node_modules/nodecube/configs/Dockerfile-mongoimport ./configs/
 ```
 
 Other configuration files depended by nodecube and recommended npm scripts

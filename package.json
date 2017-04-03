@@ -7,7 +7,7 @@
     "url": "https://github.com/dexteryy/nodecube/issues"
   },
   "repository": "https://github.com/dexteryy/nodecube",
-  "version": "0.1.2",
+  "version": "0.1.8",
   "main": "index.js",
   "scripts": {
     "prepare": "npm run lint && npm run clear && npm run build",
@@ -49,6 +49,7 @@
     "compression": "^1.6.2",
     "connect-flash": "^0.1.1",
     "connect-timeout": "^1.8.0",
+    "content-type": "^1.0.2",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.3",
     "cz-conventional-changelog": "^2.0.0",

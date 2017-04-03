@@ -3,6 +3,8 @@ import express, { Router } from 'express';
 import compression from 'compression';
 import flash from 'connect-flash';
 import bodyParser from 'body-parser';
+import getRawBody from 'raw-body';
+import contentType from 'content-type';
 import cookieParser from 'cookie-parser';
 import httpLogger from 'morgan';
 import winston from 'winston';
@@ -35,6 +37,7 @@ export default function httpService({
 
   server.enable('trust proxy');
   server.set('port', process.env.PORT || 8080);
+
   server.use(responseTime());
   if (!process.env.NODECUBE_DISABLE_COMPRESS) {
     server.use(compression());
@@ -42,12 +45,48 @@ export default function httpService({
   server.use(flash());
   server.use(methodOverride('X-HTTP-Method'));
   server.use(methodOverride('X-HTTP-Method-Override'));
-  server.use(bodyParser.json());
-  server.use(bodyParser.urlencoded({ extended: true }));
+
+  server.use((req, res, next) => {
+    res.set('Request-Id', uuid());
+    next();
+  });
+  server.use((req, res, next) => {
+    res.set('X-API-Version', process.env.NODECUBE_API_VERSION);
+    next();
+  });
+
+  if (process.env.NODECUBE_ENABLE_HEADERS_LOG) {
+    server.use((req, res, next) => {
+      const rid = res.get('Request-Id');
+      logger.info(`[${rid}] headers: ${JSON.stringify(req.headers)}`);
+      next();
+    });
+  }
+  if (process.env.NODECUBE_ENABLE_RAW_BODY_LOG) {
+    server.use((req, res, next) => {
+      const rid = res.get('Request-Id');
+      getRawBody(req, {
+        length: req.headers['content-length'],
+        encoding: contentType.parse(req).parameters.charset,
+      }, (err, string) => {
+        if (err) {
+          logger.info(`[${rid}] raw body: ${err.message}`);
+          return next(err);
+        }
+        logger.info(`[${rid}] raw body: ${string}`);
+        return next();
+      });
+    });
+  }
+
+  if (!process.env.NODECUBE_DISABLE_BODY_PARSER) {
+    server.use(bodyParser.json());
+    server.use(bodyParser.urlencoded({ extended: true }));
+    server.use(expressValidator({
+      customValidators: validators,
+    }));
+  }
   server.use(cookieParser());
-  server.use(expressValidator({
-    customValidators: validators,
-  }));
   server.use(helmet.xssFilter());
   server.use(helmet.frameguard());
   server.use(helmet.hidePoweredBy());
@@ -63,10 +102,6 @@ export default function httpService({
   server.use(corsManager(corsConfig));
   server.options('*', corsManager(corsConfig));
 
-  server.use((req, res, next) => {
-    res.header('Request-Id', uuid());
-    next();
-  });
   httpLogger.token('id', (req, res) => res.get('Request-Id'));
   const httpLoggerConfig = {
     stream: logger.stream,
@@ -79,12 +114,7 @@ export default function httpService({
   };
   server.use(httpLogger(httpLoggerFormat, httpLoggerConfig));
 
-  server.use((req, res, next) => {
-    res.set('X-API-Version', process.env.NODECUBE_API_VERSION);
-    next();
-  });
-
-  if (process.env.NODECUBE_DISABLE_STAT_API) {
+  if (!process.env.NODECUBE_DISABLE_STAT_API) {
     server.get('/stat', (req, res) => {
       res.json({
         status: 0,
