@@ -7,18 +7,19 @@
     "url": "https://github.com/dexteryy/nodecube/issues"
   },
   "repository": "https://github.com/dexteryy/nodecube",
-  "version": "0.1.9",
+  "version": "0.1.13",
   "main": "index.js",
   "scripts": {
     "prepare": "npm run lint && npm run clear && npm run build",
     "clear": "rm -rf ./build",
     "build": "npm run build:src",
     "build:src": "babel src --out-dir build --source-maps",
+    "test": "npm run build && mocha build/**/*.test.js",
     "lint": "eslint src/**"
   },
   "config": {
     "ghooks": {
-      "pre-commit": "npm run lint && npm run build"
+      "pre-commit": "npm run lint && npm run test"
     },
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"

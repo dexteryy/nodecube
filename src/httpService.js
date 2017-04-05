@@ -28,9 +28,14 @@ export default function httpService({
   connectServices = {},
   validators = {},
   corsWhitelist = [],
+  corsMethods = [],
+  corsHeaders = [],
+  corsOptions = {},
   skipHttpLogger,
   httpLoggerFormat = DEFAULT_LOG_FORMAT,
   disableCache = false,
+  disableCors = false,
+  disableCorsPreflight = false,
 }) {
   const server = express();
   const service = Router();
@@ -96,11 +101,17 @@ export default function httpService({
     server.use(helmet.noCache());
   }
 
-  const corsConfig = {
+  const corsConfig = Object.assign({}, corsOptions, {
     whitelist: corsWhitelist,
-  };
-  server.use(corsManager(corsConfig));
-  server.options('*', corsManager(corsConfig));
+    methods: corsMethods,
+    headers: corsHeaders,
+  });
+  if (!disableCors) {
+    server.use(corsManager(corsConfig));
+  }
+  if (!disableCorsPreflight) {
+    server.options('*', corsManager(corsConfig));
+  }
 
   httpLogger.token('id', (req, res) => res.get('Request-Id'));
   const httpLoggerConfig = {

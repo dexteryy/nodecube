@@ -1,21 +1,36 @@
 
 import cors from 'cors';
+import union from 'lodash/union';
 
 const isProductionEnv = process.env.NODE_ENV === 'production';
 
-export default function corsManager({
+const METHODS = ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'];
+const HEADERS = ['Link', 'X-API-Version'];
+
+function corsConfig({
   whitelist = [],
+  methods = [],
+  headers = [],
+  skipWhitelist = !isProductionEnv,
+  ...options
 }) {
   const whitelistSet = new Set(whitelist);
+  return Object.assign({
+    origin: !skipWhitelist ? (origin, callback) => {
+      callback(null, whitelistSet && (
+        whitelistSet.has('*') || whitelistSet.has(origin)
+      ));
+    } : true,
+    methods: union(methods, METHODS).join(','),
+    exposedHeaders: union(headers, HEADERS),
+    credentials: true,
+  }, options);
+}
+
+export default function corsManager(opt) {
   return (req, res, next) => {
-    return cors({
-      origin: isProductionEnv ? (origin, callback) => {
-        callback(null, whitelistSet && (
-          whitelistSet.has('*') || whitelistSet.has(origin)
-        ));
-      } : true,
-      exposedHeaders: ['Link', 'X-API-Version'],
-      credentials: true,
-    })(req, res, next);
+    return cors(corsConfig(opt))(req, res, next);
   };
 }
+
+corsManager._testConfig = corsConfig;
