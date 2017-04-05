@@ -7,7 +7,7 @@
     "url": "https://github.com/dexteryy/nodecube/issues"
   },
   "repository": "https://github.com/dexteryy/nodecube",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "main": "index.js",
   "scripts": {
     "prepare": "npm run lint && npm run clear && npm run build",

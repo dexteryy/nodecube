@@ -13,11 +13,13 @@ export default function oss(opt) {
     data,
     contentType,
     contentEncoding = '',
+    contentDisposition,
+    serverSideEncryption,
     maxAge,
     error,
     success,
   }) => {
-    return oss.putObject({
+    const putConfig = {
       Bucket: bucket,
       Key: key,
       Body: data,
@@ -27,7 +29,14 @@ export default function oss(opt) {
       CacheControl: maxAge ? `max-age=${maxAge}, public` : 'no-cache',
       ContentEncoding: contentEncoding,
       Expires: null,
-    }, function (err) {
+    };
+    if (contentDisposition) {
+      putConfig.ContentDisposition = contentDisposition;
+    }
+    if (serverSideEncryption) {
+      putConfig.ServerSideEncryption = serverSideEncryption;
+    }
+    return oss.putObject(putConfig, function (err) {
       if (err) {
         error({
           status: -1,
