@@ -70,17 +70,21 @@ export default function httpService({
   if (process.env.NODECUBE_ENABLE_RAW_BODY_LOG) {
     server.use((req, res, next) => {
       const rid = res.get('Request-Id');
+      let encoding;
+      try {
+        encoding = contentType.parse(req).parameters.charset;
+      } catch (ex) {
+        encoding = true;
+      }
       getRawBody(req, {
         length: req.headers['content-length'],
-        encoding: contentType.parse(req).parameters.charset,
-      }, (err, string) => {
-        if (err) {
-          logger.info(`[${rid}] raw body: ${err.message}`);
-          return next(err);
-        }
-        logger.info(`[${rid}] raw body: ${string}`);
-        return next();
+        encoding,
+      }).then(str => {
+        logger.info(`[${rid}] raw body: ${str}`);
+      }).catch(err => {
+        logger.info(`[${rid}] raw body: Error! ${err.message}`);
       });
+      next();
     });
   }
 
@@ -91,7 +95,9 @@ export default function httpService({
       customValidators: validators,
     }));
   }
+
   server.use(cookieParser());
+
   server.use(helmet.xssFilter());
   server.use(helmet.frameguard());
   server.use(helmet.hidePoweredBy());

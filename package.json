@@ -7,14 +7,14 @@
     "url": "https://github.com/dexteryy/nodecube/issues"
   },
   "repository": "https://github.com/dexteryy/nodecube",
-  "version": "0.1.13",
+  "version": "0.1.18",
   "main": "index.js",
   "scripts": {
-    "prepare": "npm run lint && npm run clear && npm run build",
-    "clear": "rm -rf ./build",
-    "build": "npm run build:src",
+    "prepare": "npm run lint && npm run build",
+    "build": "if [ -d build ]; then rm -r build; fi; npm run build:src",
     "build:src": "babel src --out-dir build --source-maps",
-    "test": "npm run build && mocha build/**/*.test.js",
+    "test": "npm run build && npm run test:nobuild",
+    "test:nobuild": "mocha build/**/*.test.js",
     "lint": "eslint src/**"
   },
   "config": {
