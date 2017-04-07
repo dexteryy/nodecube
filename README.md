@@ -107,7 +107,7 @@ cp ./node_modules/nodecube/configs/Dockerfile-mongoimport ./configs/
 Other configuration files depended by nodecube and recommended npm scripts
 
 ```
-cp ./node_modules/nodecube/.babelrc ./
+cp ./node_modules/nodecube/configs/babelrc ./.babelrc
 cp ./node_modules/nodecube/configs/gitignore ./.gitignore
 cp ./node_modules/nodecube/configs/dockerignore ./.dockerignore
 ```

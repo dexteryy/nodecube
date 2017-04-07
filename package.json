@@ -7,7 +7,7 @@
     "url": "https://github.com/dexteryy/nodecube/issues"
   },
   "repository": "https://github.com/dexteryy/nodecube",
-  "version": "0.1.19",
+  "version": "0.1.20",
   "main": "index.js",
   "scripts": {
     "prepare": "npm run lint && npm run build",
@@ -24,7 +24,7 @@
     }
   },
   "engines": {
-    "node": ">=7.7.4"
+    "node": ">=6"
   },
   "dependencies": {
     "aliyun-sdk": "^1.9.22",
