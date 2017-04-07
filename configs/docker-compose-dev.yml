@@ -21,6 +21,7 @@ services:
       - ../../../yarn.lock:/ebsa/service/yarn.lock
       - ../../../server:/ebsa/service/server
       - ../../../configs:/ebsa/service/configs
+      - ../../../data:/ebsa/service/data
     depends_on:
       - 'redis'
       - 'mongoimport'

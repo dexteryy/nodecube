@@ -3,13 +3,13 @@ FROM node:7.7.4
 
 # install yarn
 # https://github.com/yarnpkg/yarn/blob/master/Dockerfile.node7
-# ADD https://dl.yarnpkg.com/debian/pubkey.gpg /tmp/yarn-pubkey.gpg
-# RUN apt-key add /tmp/yarn-pubkey.gpg && rm /tmp/yarn-pubkey.gpg
-# RUN echo "deb http://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
-# RUN apt-get -y update && \
-#   apt-get install -y --no-install-recommends yarn && \
-#   apt-get clean && \
-#   rm -rf /var/lib/apt/lists/*
+ADD https://dl.yarnpkg.com/debian/pubkey.gpg /tmp/yarn-pubkey.gpg
+RUN apt-key add /tmp/yarn-pubkey.gpg && rm /tmp/yarn-pubkey.gpg
+RUN echo "deb http://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
+RUN apt-get -y update && \
+  apt-get install -y --no-install-recommends yarn && \
+  apt-get clean && \
+  rm -rf /var/lib/apt/lists/*
 
 # for unbuntu
 RUN echo "Asia/Shanghai" > /etc/timezone
@@ -27,21 +27,22 @@ RUN dpkg-reconfigure -f noninteractive tzdata
 
 
 
+
 RUN mkdir -p /ebsa/service \
   && mkdir -p /tmp/service \
   && mkdir -p /int/www \
   && touch /int/www/stats.html
 
 # for npm install
-ADD package.json /tmp/service/
-RUN cd /tmp/service && NODE_ENV=development npm install
-WORKDIR /ebsa/service
-RUN ln -s /tmp/service/node_modules
-# for yarn
-# ADD package.json yarn.lock /tmp/service/
-# RUN cd /tmp/service && NODE_ENV=development yarn
+# ADD package.json /tmp/service/
+# RUN cd /tmp/service && NODE_ENV=development npm install
 # WORKDIR /ebsa/service
 # RUN ln -s /tmp/service/node_modules
+# for yarn
+ADD package.json yarn.lock /tmp/service/
+RUN cd /tmp/service && NODE_ENV=development yarn
+WORKDIR /ebsa/service
+RUN ln -s /tmp/service/node_modules
 
 COPY . /ebsa/service
 
