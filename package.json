@@ -6,8 +6,10 @@
   "bugs": {
     "url": "https://github.com/dexteryy/nodecube/issues"
   },
+  "license": "MIT",
+  "homepage": "https://github.com/dexteryy/nodecube",
   "repository": "https://github.com/dexteryy/nodecube",
-  "version": "0.1.20",
+  "version": "0.1.22",
   "main": "index.js",
   "scripts": {
     "prepare": "npm run lint && npm run build",
@@ -98,5 +100,22 @@
     "validator": "^7.0.0",
     "winston": "^2.3.1"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "keywords": [
+    "restful",
+    "api-service",
+    "microservice",
+    "12-factor",
+    "docker",
+    "docker-compose",
+    "express",
+    "jwt",
+    "es6",
+    "async-await",
+    "boilerplate",
+    "starter-kit",
+    "generator",
+    "minimal",
+    "zero-configuration"
+  ]
 }

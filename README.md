@@ -29,7 +29,7 @@ Nodecube is a batch of continuously updated base code and configurations for the
 * [Babel v6](babeljs.io)
   * [babel-preset-env (node v7.8+)](https://github.com/babel/babel-preset-env) + [ES2015 modules](https://www.npmjs.com/package/babel-plugin-transform-es2015-modules-commonjs) + [add-module-exports](https://github.com/59naga/babel-plugin-add-module-exports) + [Object rest spread](http://babeljs.io/docs/plugins/transform-object-rest-spread/) + [Class Properties](http://babeljs.io/docs/plugins/transform-class-properties/) + [Legacy Decorator](https://www.npmjs.com/package/babel-plugin-transform-decorators-legacy) + [JSX + Flow](http://babeljs.io/docs/plugins/preset-react/)
 * [ESLint v2](http://eslint.org/) ([babel](https://www.npmjs.com/package/babel-eslint) + [flow-vars](https://www.npmjs.com/package/eslint-plugin-flow-vars) + [react](https://www.npmjs.com/package/eslint-plugin-react)) + [Flow](flowtype.org)
-* [Mocha](http://mochajs.org/) + [Chai](http://chaijs.com/) + [supertest](https://www.npmjs.com/package/supertest)
+* [Mocha](http://mochajs.org/) + [Chai](http://chaijs.com/) + [supertest](https://www.npmjs.com/package/supertest) + [nock](https://www.npmjs.com/package/nock) + [Sinon.JS](http://sinonjs.org/) + [faker.js](https://github.com/Marak/Faker.js)
 * [dotenv](https://www.npmjs.com/package/dotenv) + [Plop](https://github.com/amwmedia/plop) [TODO] ([Handlebar](http://handlebarsjs.com/) + [Inquirer](https://www.npmjs.com/package/inquirer)) + [Commitizen](https://www.npmjs.com/package/commitizen) ([cz-conventional-changelog](https://github.com/commitizen/cz-conventional-changelog)) + [Husky](https://github.com/typicode/husky) + [EditorConfig](http://editorconfig.org/)
 
 
