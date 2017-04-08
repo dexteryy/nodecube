@@ -1,12 +1,26 @@
 
-# Nodecube
+# nodecube
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/dexteryy/nodecube.svg)](https://greenkeeper.io/)
+[![NPM Version][npm-image]][npm-url]
+[![Build Status][travis-image]][travis-url]
+[![Dependencies Status][dep-image]][dep-url]
+[![Greenkeeper badge][greenkeeper-image]](https://greenkeeper.io/)
 
-Nodecube is a batch of continuously updated base code and configurations for the minimal modern node.js service that conform to [RESTful API](https://github.com/marmelab/awesome-rest#design), [12-Factor App](https://12factor.net/), [Microservice Architecture](https://github.com/mfornos/awesome-microservices#theory)
+[![Nodei][nodei-image]][npm-url]
+
+[npm-image]: https://img.shields.io/npm/v/nodecube.svg
+[nodei-image]: https://nodei.co/npm/nodecube.png?downloads=true
+[npm-url]: https://npmjs.org/package/nodecube
+[travis-image]: https://img.shields.io/travis/dexteryy/nodecube/master.svg
+[travis-url]: https://travis-ci.org/dexteryy/nodecube
+[dep-image]: https://david-dm.org/dexteryy/nodecube.svg
+[dep-url]: https://david-dm.org/dexteryy/nodecube
+[greenkeeper-image]: https://badges.greenkeeper.io/dexteryy/nodecube.svg
+
+nodecube is a batch of continuously updated base code and configurations for the minimal modern Node.js service that conform to [RESTful API](https://github.com/marmelab/awesome-rest#design), [12-Factor App](https://12factor.net/), [Microservice Architecture](https://github.com/mfornos/awesome-microservices#theory)
 
 > * nodecube-cli: TODO
-> * Boilerplate + demo: https://github.com/dexteryy/nodecube-example/
+> * nodecube-example: Boilerplate + demo https://github.com/dexteryy/nodecube-example/
 
 ## Features
 
