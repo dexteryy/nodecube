@@ -1,6 +1,8 @@
 
 # Nodecube
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/dexteryy/nodecube.svg)](https://greenkeeper.io/)
+
 Nodecube is a batch of continuously updated base code and configurations for the minimal modern node.js service that conform to [RESTful API](https://github.com/marmelab/awesome-rest#design), [12-Factor App](https://12factor.net/), [Microservice Architecture](https://github.com/mfornos/awesome-microservices#theory)
 
 > * nodecube-cli: TODO
