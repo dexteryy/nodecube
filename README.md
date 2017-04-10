@@ -111,7 +111,6 @@ cp ./node_modules/nodecube/configs/Dockerfile ./
 Add other configuration files depended by nodecube and recommended npm scripts
 
 ```
-cp ./node_modules/nodecube/configs/wait-for-it.sh ./configs/
 cp ./node_modules/nodecube/configs/babelrc ./.babelrc
 cp ./node_modules/nodecube/configs/gitignore ./.gitignore
 cp ./node_modules/nodecube/configs/dockerignore ./.dockerignore

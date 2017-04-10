@@ -25,18 +25,18 @@ USAGE
 wait_for()
 {
     if [[ $TIMEOUT -gt 0 ]]; then
-        echoerr "$cmdname: waiting $TIMEOUT seconds for $HOST:$PORT"
+        echoerr "$cmdname: waiting $TIMEOUT seconds for $WFI_HOST:$WFI_PORT"
     else
-        echoerr "$cmdname: waiting for $HOST:$PORT without a timeout"
+        echoerr "$cmdname: waiting for $WFI_HOST:$WFI_PORT without a timeout"
     fi
     start_ts=$(date +%s)
     while :
     do
-        (echo > /dev/tcp/$HOST/$PORT) >/dev/null 2>&1
+        (echo > /dev/tcp/$WFI_HOST/$WFI_PORT) >/dev/null 2>&1
         result=$?
         if [[ $result -eq 0 ]]; then
             end_ts=$(date +%s)
-            echoerr "$cmdname: $HOST:$PORT is available after $((end_ts - start_ts)) seconds"
+            echoerr "$cmdname: $WFI_HOST:$WFI_PORT is available after $((end_ts - start_ts)) seconds"
             break
         fi
         sleep 1
@@ -48,16 +48,16 @@ wait_for_wrapper()
 {
     # In order to support SIGINT during timeout: http://unix.stackexchange.com/a/57692
     if [[ $QUIET -eq 1 ]]; then
-        timeout $TIMEOUT $0 --quiet --child --host=$HOST --port=$PORT --timeout=$TIMEOUT &
+        timeout $TIMEOUT $0 --quiet --child --host=$WFI_HOST --port=$WFI_PORT --timeout=$TIMEOUT &
     else
-        timeout $TIMEOUT $0 --child --host=$HOST --port=$PORT --timeout=$TIMEOUT &
+        timeout $TIMEOUT $0 --child --host=$WFI_HOST --port=$WFI_PORT --timeout=$TIMEOUT &
     fi
     PID=$!
     trap "kill -INT -$PID" INT
     wait $PID
     RESULT=$?
     if [[ $RESULT -ne 0 ]]; then
-        echoerr "$cmdname: timeout occurred after waiting $TIMEOUT seconds for $HOST:$PORT"
+        echoerr "$cmdname: timeout occurred after waiting $TIMEOUT seconds for $WFI_HOST:$WFI_PORT"
     fi
     return $RESULT
 }
@@ -68,8 +68,8 @@ do
     case "$1" in
         *:* )
         hostport=(${1//:/ })
-        HOST=${hostport[0]}
-        PORT=${hostport[1]}
+        WFI_HOST=${hostport[0]}
+        WFI_PORT=${hostport[1]}
         shift 1
         ;;
         --child)
@@ -85,21 +85,21 @@ do
         shift 1
         ;;
         -h)
-        HOST="$2"
-        if [[ $HOST == "" ]]; then break; fi
+        WFI_HOST="$2"
+        if [[ $WFI_HOST == "" ]]; then break; fi
         shift 2
         ;;
         --host=*)
-        HOST="${1#*=}"
+        WFI_HOST="${1#*=}"
         shift 1
         ;;
         -p)
-        PORT="$2"
-        if [[ $PORT == "" ]]; then break; fi
+        WFI_PORT="$2"
+        if [[ $WFI_PORT == "" ]]; then break; fi
         shift 2
         ;;
         --port=*)
-        PORT="${1#*=}"
+        WFI_PORT="${1#*=}"
         shift 1
         ;;
         -t)
@@ -126,7 +126,7 @@ do
     esac
 done
 
-if [[ "$HOST" == "" || "$PORT" == "" ]]; then
+if [[ "$WFI_HOST" == "" || "$WFI_PORT" == "" ]]; then
     echoerr "Error: you need to provide a host and port to test."
     usage
 fi
