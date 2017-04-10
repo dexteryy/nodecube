@@ -38,7 +38,6 @@ services:
       dockerfile: configs/Dockerfile-mongoimport
     image: '${COMPOSE_PROJECT_NAME}-mongoimport:latest'
     container_name: '${COMPOSE_PROJECT_NAME}-mongoimport'
-    command: 'sleep 86400'
     depends_on:
       - 'mongo'
   mysql:

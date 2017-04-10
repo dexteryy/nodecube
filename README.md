@@ -96,37 +96,45 @@ Use nodecube-cli (TODO) or imitate the [nodecube-example](https://github.com/dex
 
 #### Step 2
 
-Project-defined template file for [env.config][custom.env.sample.config]
+Add the project-defined template file for [env.config][custom.env.sample.config]
 
 ```
 cp ./node_modules/nodecube/configs/env.sample.config ./configs/
 ```
 
-Project-defined compose file ([example](https://github.com/dexteryy/nodecube-example/blob/master/configs/docker-compose-dev.override.yml)) for development evironment, see [Multiple Compose files](https://docs.docker.com/compose/extends/#multiple-compose-files)
-
-```
-cp ./node_modules/nodecube/configs/docker-compose-dev.override.yml ./configs/
-```
-
-The Dockerfile only for production (or staging) environment
+Add the Dockerfile only for production (or staging) environment
 
 ```
 cp ./node_modules/nodecube/configs/Dockerfile ./
 ```
 
-Optionally add [`Dockerfile-mongoimport`](https://github.com/dexteryy/nodecube-example/blob/master/configs/Dockerfile-mongoimport) (for running [mongoimport](https://docs.mongodb.com/manual/reference/program/mongoimport/) in MongoDB container)
+Add other configuration files depended by nodecube and recommended npm scripts
 
 ```
-cp ./node_modules/nodecube/configs/Dockerfile-mongoimport ./configs/
-```
-
-Other configuration files depended by nodecube and recommended npm scripts
-
-```
+cp ./node_modules/nodecube/configs/wait-for-it.sh ./configs/
 cp ./node_modules/nodecube/configs/babelrc ./.babelrc
 cp ./node_modules/nodecube/configs/gitignore ./.gitignore
 cp ./node_modules/nodecube/configs/dockerignore ./.dockerignore
 ```
+
+#### Step 3
+
+Generate your project-defined compose file ([example](https://github.com/dexteryy/nodecube-example/blob/master/configs/docker-compose-dev.override.yml)) for development evironment, see [Multiple Compose files](https://docs.docker.com/compose/extends/#multiple-compose-files)
+
+```bash
+cp ./node_modules/nodecube/configs/docker-compose-dev.override.sample.yml ./configs/docker-compose-dev.override.yml
+# This file may need to be modified to fit your needs (follow TODO comments)
+vim ./configs/docker-compose-dev.override.yml
+```
+
+Optionally, generate the [`Dockerfile for mongoimport`](https://github.com/dexteryy/nodecube-example/blob/master/configs/Dockerfile-mongoimport) (for running [mongoimport](https://docs.mongodb.com/manual/reference/program/mongoimport/) in the `mongo` container)
+
+```bash
+cp ./node_modules/nodecube/configs/Dockerfile-mongoimport.sample ./configs/Dockerfile-mongoimport
+# This file must be modified to fit your needs
+vim ./configs/Dockerfile-mongoimport
+```
+
 
 ## How to work with the API service project
 
@@ -148,16 +156,10 @@ For other developers:
 cp Dockerfile Dockerfile-dev
 ```
 
-Install dependencies: (only for npm scripts)
+Install dependencies
 
 ```bash
 yarn
-```
-
-or
-
-```bash
-npm install
 ```
 
 ### Create or update containers for development environment
@@ -177,6 +179,15 @@ npm run dev:empty
 Just remove all containers and images
 
 ```
+npm run dev:reset
+```
+
+### Update
+
+Reinstall all dependencies and update lock file
+
+```
+npm run upgrade
 npm run dev:rebuild
 ```
 
