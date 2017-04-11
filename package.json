@@ -9,7 +9,7 @@
   "license": "MIT",
   "homepage": "https://github.com/dexteryy/nodecube",
   "repository": "https://github.com/dexteryy/nodecube",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "main": "index.js",
   "scripts": {
     "prepare": "npm run lint && npm run build",
