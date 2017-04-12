@@ -15,6 +15,7 @@ services:
       - NODE_ENV=development
       - PORT=80
     volumes:
+      - ../../../index.js:/ebsa/service/index.js
       - ../../../.babelrc:/ebsa/service/.babelrc
       - ../../../env.config:/ebsa/service/env.config
       - ../../../package.json:/ebsa/service/package.json

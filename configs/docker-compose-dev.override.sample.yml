@@ -9,7 +9,8 @@ services:
     #        https://github.com/vishnubob/wait-for-it
     command: 'bash ./wait-for-it.sh mysql:3306 -t 0 -s -- ${CUSTOM_CMD}'
     ports: []
-    environment: []
+    environment:
+      - NODE_ENV=development
     volumes: []
     links: []
     depends_on: []
