@@ -15,6 +15,7 @@ services:
       - NODE_ENV=development
       - PORT=80
     volumes:
+      - ./wait-for-it.sh:/ebsa/service/wait-for-it.sh
       - ../../../index.js:/ebsa/service/index.js
       - ../../../.babelrc:/ebsa/service/.babelrc
       - ../../../env.config:/ebsa/service/env.config
@@ -30,9 +31,13 @@ services:
   redis:
     image: 'redis:latest'
     container_name: '${COMPOSE_PROJECT_NAME}-redis'
+    ports:
+      - '${REDIS_PORT-6379}:6379'
   mongo:
     image: 'mongo:3.2'
     container_name: '${COMPOSE_PROJECT_NAME}-mongo'
+    ports:
+      - '${MONGO_PORT-27017}:27017'
   mongoimport:
     build:
       context: ../../../
@@ -44,8 +49,11 @@ services:
   mysql:
     image: 'mysql:5.6'
     container_name: '${COMPOSE_PROJECT_NAME}-mysql'
+    ports:
+      - '${MYSQL_PORT-3306}:3306'
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
       - MYSQL_DATABASE=default
     volumes:
+      - ./mysql.cnf:/etc/mysql/conf.d/encoding.cnf
       - ../../../data/mysql:/docker-entrypoint-initdb.d

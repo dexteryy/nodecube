@@ -30,7 +30,6 @@ WORKDIR /ebsa/service
 RUN ln -s /tmp/service/node_modules
 
 COPY . /ebsa/service
-RUN cp node_modules/nodecube/configs/wait-for-it.sh /ebsa/service/
 
 EXPOSE 80
 CMD ["npm", "run", "start"]

@@ -2,6 +2,8 @@
 import Sequelize from 'sequelize';
 import logger from './logger';
 
+const isProductionEnv = process.env.NODE_ENV === 'production';
+
 export default function sequelize({
   host,
   port,
@@ -11,15 +13,15 @@ export default function sequelize({
   password,
 }) {
   const config = {
-    host,
-    port,
+    host: host || !isProductionEnv && 'mysql' || '',
+    port: port || !isProductionEnv && '3306' || '',
     dialect,
     timezone: '+08:00',
     logging: logger.info,
   };
   return new Sequelize(
-    dbname,
-    username,
+    dbname || !isProductionEnv && 'default' || '',
+    username || !isProductionEnv && 'root' || '',
     password,
     config,
   );

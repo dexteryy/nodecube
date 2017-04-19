@@ -2,18 +2,23 @@
 import mongoose from 'mongoose';
 import qs from 'qs';
 
+const isProductionEnv = process.env.NODE_ENV === 'production';
+
 mongoose.Promise = global.Promise;
 
 export default function mongo({
-  node1Host,
-  node1Port,
+  node1Host: customNode1Host,
+  node1Port: customNode1Port,
   node2Host,
   node2Port,
-  dbname,
+  dbname: customDbname,
   replset,
   user,
   pass,
 }) {
+  const node1Host = customNode1Host || !isProductionEnv && 'mongo' || '';
+  const node1Port = customNode1Port || !isProductionEnv && '27017' || '';
+  const dbname = customDbname || !isProductionEnv && 'test' || '';
   const nodes = [`${node1Host}:${node1Port}`];
   if (node2Host) {
     nodes.push(`${node2Host}:${node2Port}`);

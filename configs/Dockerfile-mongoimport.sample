@@ -1,7 +1,7 @@
 
 FROM mongo:3.2
 
-# @TODO: replace [DB_NAME], [COLLECTION_NAME], [FAKE_DATA], [REAL_DATA], ...
+# @TODO: replace [COLLECTION_NAME], [FAKE_DATA], [REAL_DATA], ...
 #        with your own
 #        or write your mongoimport commands
 
@@ -10,23 +10,23 @@ ADD data/mongo/[FAKE_DATA].json \
   # @TODO add more
   /tmp/
 
-CMD until echo 'db.stats().ok' | mongo mongo/[DB_NAME] --quiet; \
+CMD until echo 'db.stats().ok' | mongo mongo/test --quiet; \
     do sleep 1; \
   done && \
-  mongo [DB_NAME] \
+  mongo test \
   --host mongo \
   --eval "db.dropDatabase();" && \
   # NOTE: keep the above lines
   mongoimport \
   --host mongo \
-  --db [DB_NAME] \
+  --db test \
   --collection [COLLECTION_NAME] \
   --type json \
   --jsonArray \
   --file /tmp/[FAKE_DATA].json && \
   mongoimport \
   --host mongo \
-  --db [DB_NAME] \
+  --db test \
   --collection [COLLECTION_NAME] \
   --type json \
   --jsonArray \
