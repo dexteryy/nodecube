@@ -71,7 +71,7 @@
     "http-proxy-middleware": "^0.17.4",
     "husky": "^0.13.3",
     "ioredis": "^2.5.0",
-    "jsonfile": "^2.4.0",
+    "jsonfile": "^3.0.0",
     "jsonwebtoken": "^7.3.0",
     "lodash": "^4.17.4",
     "method-override": "^2.3.8",
