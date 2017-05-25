@@ -36,16 +36,16 @@ nodecube is a batch of continuously updated base code and configurations for the
   * [morgan](https://www.npmjs.com/package/morgan) + [winston](https://www.npmjs.com/package/express-winston) + [errorhandler](https://www.npmjs.com/package/errorhandler)
   * [connect-flash](https://www.npmjs.com/package/connect-flash) + [response-time](https://www.npmjs.com/package/response-time) + [method-override](https://www.npmjs.com/package/method-override)
   * [node-http-proxy](https://github.com/nodejitsu/node-http-proxy)
+* [graphql-tools](http://dev.apollodata.com/tools/graphql-tools/index.html) [TODO] / [graphql-server-express](http://dev.apollodata.com/tools/graphql-server/setup.html#graphqlExpress) [TODO] + [graphql-anywhere](https://www.npmjs.com/package/graphql-anywhere) [TODO]
 * [gRPC](www.grpc.io) [TODO]
-* [GraphQL](graphql.org) [TODO]
 * [mongoose](http://mongoosejs.com/) + [sequelize](https://github.com/sequelize/sequelize) + [ioredis](https://github.com/luin/ioredis) + [aws-sdk-js](https://github.com/aws/aws-sdk-js) [TODO] + [aliyun-sdk](https://github.com/aliyun-UED/aliyun-sdk-js)
 * [nodemailer](https://www.npmjs.com/package/nodemailer)
 * [uuid](https://www.npmjs.com/package/uuid) + [shortid](https://www.npmjs.com/package/shortid) + [bcrypt](https://www.npmjs.com/package/bcrypt) + [spark-md5](https://www.npmjs.com/package/spark-md5)
 * [Docker](https://docs.docker.com/engine/reference/builder/) + [Docker Compose](https://docs.docker.com/compose/compose-file/)
 * [Babel v6](babeljs.io)
   * [babel-preset-env (node v7.8+)](https://github.com/babel/babel-preset-env) + [ES2015 modules](https://www.npmjs.com/package/babel-plugin-transform-es2015-modules-commonjs) + [add-module-exports](https://github.com/59naga/babel-plugin-add-module-exports) + [Object rest spread](http://babeljs.io/docs/plugins/transform-object-rest-spread/) + [Class Properties](http://babeljs.io/docs/plugins/transform-class-properties/) + [Legacy Decorator](https://www.npmjs.com/package/babel-plugin-transform-decorators-legacy) + [JSX + Flow](http://babeljs.io/docs/plugins/preset-react/)
-* [ESLint v2](http://eslint.org/) ([babel](https://www.npmjs.com/package/babel-eslint) + [flow-vars](https://www.npmjs.com/package/eslint-plugin-flow-vars) + [react](https://www.npmjs.com/package/eslint-plugin-react)) + [Flow](flowtype.org)
-* [Mocha](http://mochajs.org/) + [Chai](http://chaijs.com/) + [supertest](https://www.npmjs.com/package/supertest) + [nock](https://www.npmjs.com/package/nock) + [Sinon.JS](http://sinonjs.org/) + [faker.js](https://github.com/Marak/Faker.js)
+* [ESLint v2](http://eslint.org/) ([babel](https://www.npmjs.com/package/babel-eslint) + [react](https://www.npmjs.com/package/eslint-plugin-react) + [flowtype](https://github.com/gajus/eslint-plugin-flowtype) [TODO] + [graphql](https://www.npmjs.com/package/eslint-plugin-graphql) [TODO] + [fp](eslint-plugin-fp) [TODO]) + [Flow](flowtype.org)
+* [AVA](https://github.com/avajs/ava) [TODO] / [Mocha](http://mochajs.org/) & [Chai](http://chaijs.com/) + [supertest](https://www.npmjs.com/package/supertest) + [nock](https://www.npmjs.com/package/nock) + [Sinon.JS](http://sinonjs.org/) + [faker.js](https://github.com/Marak/Faker.js)
 * [dotenv](https://www.npmjs.com/package/dotenv) + [Plop](https://github.com/amwmedia/plop) [TODO] ([Handlebar](http://handlebarsjs.com/) + [Inquirer](https://www.npmjs.com/package/inquirer)) + [Commitizen](https://www.npmjs.com/package/commitizen) ([cz-conventional-changelog](https://github.com/commitizen/cz-conventional-changelog)) + [Husky](https://github.com/typicode/husky) + [EditorConfig](http://editorconfig.org/)
 
 
