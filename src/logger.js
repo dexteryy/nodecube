@@ -1,19 +1,17 @@
 
 import winston from 'winston';
 
-const isProductionEnv = process.env.NODE_ENV === 'production';
-
-const consoleConfig = new winston.transports.Console({
-  level: process.env.NODECUBE_ENABLE_VERBOSE_LOG ? 'verbose' : 'info',
-  colorize: !isProductionEnv,
-  json: isProductionEnv,
-  prettyPrint: !isProductionEnv,
-  humanReadableUnhandledException: !isProductionEnv,
-});
+const consoleConfig = {
+  level: process.env.NODECUBE_LOG_LEVEL || 'info',
+  colorize: !!process.env.NODECUBE_ENABLE_COLOR_LOG,
+  json: !!process.env.NODECUBE_ENABLE_JSON_LOG,
+  handleExceptions: !process.env.NODECUBE_DISABLE_EXCEPTION_LOG,
+  humanReadableUnhandledException: !!process.env.NODECUBE_ENABLE_READABLE_EXCEPTION_LOG,
+};
 
 const logger = new winston.Logger({
   transports: [
-    consoleConfig,
+    new winston.transports.Console(consoleConfig),
   ],
 });
 

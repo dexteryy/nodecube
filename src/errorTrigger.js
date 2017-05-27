@@ -3,10 +3,11 @@ export default function errorTrigger({
   status = -101,
   isExpected = true,
   message,
+  ...meta
 }) {
-  const errData = JSON.stringify({
+  throw Object.assign(new Error(message), {
     status,
     isExpected,
+    meta,
   });
-  throw new Error(`[[${errData}]] ${message}`);
 }

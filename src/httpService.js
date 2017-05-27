@@ -7,6 +7,7 @@ import getRawBody from 'raw-body';
 import contentType from 'content-type';
 import cookieParser from 'cookie-parser';
 import httpLogger from 'morgan';
+import logger from './logger';
 import winston from 'winston';
 import expressWinston from 'express-winston';
 import errorHandler from 'errorhandler';
@@ -18,7 +19,7 @@ import helmet from 'helmet';
 // import passport from 'passport';
 import uuid from 'uuid/v4';
 import corsManager from './corsManager';
-import logger from './logger';
+
 global.logger = logger;
 
 const isProductionEnv = process.env.NODE_ENV === 'production';
@@ -63,7 +64,7 @@ export default function httpService({
   if (process.env.NODECUBE_ENABLE_HEADERS_LOG) {
     server.use((req, res, next) => {
       const rid = res.get('Request-Id');
-      logger.info(`[${rid}] headers: ${JSON.stringify(req.headers)}`);
+      logger.info(`[${rid}] HEADERS:`, req.headers);
       next();
     });
   }
@@ -80,9 +81,9 @@ export default function httpService({
         length: req.headers['content-length'],
         encoding,
       }).then(str => {
-        logger.info(`[${rid}] raw body: ${str}`);
+        logger.info(`[${rid}] RAW BODY: ${str}`);
       }).catch(err => {
-        logger.info(`[${rid}] raw body: Error! ${err.message}`);
+        logger.error(`[${rid}] RAW BODY ERROR: ${err.message}`);
       });
       next();
     });
@@ -167,14 +168,17 @@ export default function httpService({
 
   server.use(expressWinston.errorLogger({
     transports: [
-      new winston.transports.Console({
-        level: process.env.NODECUBE_ENABLE_VERBOSE_LOG ? 'verbose' : 'info',
-        colorize: false,
-        json: true,
-        prettyPrint: false,
-        humanReadableUnhandledException: false,
-      }),
+      new winston.transports.Console(logger.consoleConfig),
     ],
+    dynamicMeta(req, res) {
+      const meta = [{
+        requestId: res.get('Request-Id'),
+      }];
+      if (req.user) {
+        meta.push(req.user);
+      }
+      return meta;
+    },
   }));
 
   if (!isProductionEnv) {
