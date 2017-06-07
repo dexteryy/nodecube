@@ -67,7 +67,7 @@
     "express-winston": "^2.3.0",
     "faker": "^4.1.0",
     "helmet": "^3.5.0",
-    "hifetch": "^1.4.8",
+    "hifetch": "^2.0.0",
     "http-proxy-middleware": "^0.17.4",
     "husky": "^0.13.3",
     "ioredis": "^2.5.0",
