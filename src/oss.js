@@ -16,9 +16,31 @@ export default function oss(opt) {
     contentDisposition,
     serverSideEncryption,
     maxAge,
+    timeout,
+    timeoutCallback,
     error,
     success,
   }) => {
+    let timeoutTimer;
+    if (timeout) {
+      timeoutTimer = setTimeout(() => {
+        const meta = {
+          config,
+          bucket,
+          key,
+          contentType,
+          contentEncoding,
+          contentDisposition,
+          serverSideEncryption,
+          maxAge,
+          timeout,
+        };
+        logger.error('[OSS PUTOBJECT TIMEOUT]', meta);
+        if (timeoutCallback) {
+          timeoutCallback(meta);
+        }
+      }, timeout);
+    }
     const putConfig = {
       Bucket: bucket,
       Key: key,
@@ -37,6 +59,7 @@ export default function oss(opt) {
       putConfig.ServerSideEncryption = serverSideEncryption;
     }
     return oss.putObject(putConfig, function (err) {
+      clearTimeout(timeoutTimer);
       if (err) {
         error({
           status: -1,
