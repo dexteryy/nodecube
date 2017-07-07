@@ -97,7 +97,7 @@
     "spark-md5": "^3.0.0",
     "supertest": "^3.0.0",
     "uuid": "^3.0.1",
-    "validator": "^7.0.0",
+    "validator": "^8.0.0",
     "winston": "^2.3.1"
   },
   "devDependencies": {},
