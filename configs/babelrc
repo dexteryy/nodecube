@@ -2,7 +2,7 @@
   "presets": [
     ["env", {
       "targets": {
-        "node": "7.8"
+        "node": "8.2.1"
       },
       "include": [],
       "useBuiltIns": true,
@@ -17,6 +17,6 @@
     "transform-function-bind",
     "transform-class-properties",
     "transform-object-rest-spread",
-    "transform-decorators-legacy"
+    "transform-decorators"
   ]
 }

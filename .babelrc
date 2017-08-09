@@ -14,9 +14,10 @@
   "plugins": [
     "add-module-exports",
     "transform-es2015-modules-commonjs",
+    "fast-async",
     "transform-function-bind",
     "transform-class-properties",
     "transform-object-rest-spread",
-    "transform-decorators-legacy"
+    "transform-decorators"
   ]
 }
