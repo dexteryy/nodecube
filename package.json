@@ -70,7 +70,7 @@
     "helmet": "^3.5.0",
     "hifetch": "^2.1.0",
     "http-proxy-middleware": "^0.17.4",
-    "husky": "^0.13.3",
+    "husky": "^0.15.0-beta.3",
     "ioredis": "^2.5.0",
     "jsonfile": "^2.4.0",
     "jsonwebtoken": "^7.3.0",
