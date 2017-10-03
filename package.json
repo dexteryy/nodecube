@@ -77,7 +77,7 @@
     "lodash": "^4.17.4",
     "method-override": "^2.3.8",
     "mime-types": "^2.1.15",
-    "mocha": "^3.2.0",
+    "mocha": "^4.0.0",
     "moment": "^2.18.1",
     "mongoose": "4.9.5",
     "morgan": "^1.8.1",
