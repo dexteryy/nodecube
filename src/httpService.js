@@ -1,4 +1,3 @@
-
 import express, { Router } from 'express';
 import compression from 'compression';
 import flash from 'connect-flash';
@@ -23,7 +22,8 @@ import corsManager from './corsManager';
 global.logger = logger;
 
 const isProductionEnv = process.env.NODE_ENV === 'production';
-const DEFAULT_LOG_FORMAT = '[:id] :response-time ms | :remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"';
+const DEFAULT_LOG_FORMAT
+  = '[:id] :response-time ms | :remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"';
 
 export default function httpService({
   connectServices = {},
@@ -80,11 +80,13 @@ export default function httpService({
       getRawBody(req, {
         length: req.headers['content-length'],
         encoding,
-      }).then(str => {
-        logger.info(`[${rid}] RAW BODY: ${str}`);
-      }).catch(err => {
-        logger.error(`[${rid}] RAW BODY ERROR: ${err.message}`);
-      });
+      })
+        .then(str => {
+          logger.info(`[${rid}] RAW BODY: ${str}`);
+        })
+        .catch(err => {
+          logger.error(`[${rid}] RAW BODY ERROR: ${err.message}`);
+        });
       next();
     });
   }
@@ -92,9 +94,11 @@ export default function httpService({
   if (!process.env.NODECUBE_DISABLE_BODY_PARSER) {
     server.use(bodyParser.json());
     server.use(bodyParser.urlencoded({ extended: true }));
-    server.use(expressValidator({
-      customValidators: validators,
-    }));
+    server.use(
+      expressValidator({
+        customValidators: validators,
+      })
+    );
   }
 
   server.use(cookieParser());
@@ -142,15 +146,7 @@ export default function httpService({
 
   if (process.env.NODECUBE_ENABLE_INSPECT_API) {
     server.get('/inspect', (req, res) => {
-      const {
-        id,
-        responseTime,
-        baseUrl,
-        protocol,
-        hostname,
-        ip,
-        ips,
-      } = req;
+      const { id, responseTime, baseUrl, protocol, hostname, ip, ips } = req;
       res.json({
         id,
         responseTime,
@@ -166,20 +162,22 @@ export default function httpService({
 
   server.use(service);
 
-  server.use(expressWinston.errorLogger({
-    transports: [
-      new winston.transports.Console(logger.consoleConfig),
-    ],
-    dynamicMeta(req, res) {
-      const meta = [{
-        requestId: res.get('Request-Id'),
-      }];
-      if (req.user) {
-        meta.push(req.user);
-      }
-      return meta;
-    },
-  }));
+  server.use(
+    expressWinston.errorLogger({
+      transports: [new winston.transports.Console(logger.consoleConfig)],
+      dynamicMeta(req, res) {
+        const meta = [
+          {
+            requestId: res.get('Request-Id'),
+          },
+        ];
+        if (req.user) {
+          meta.push(req.user);
+        }
+        return meta;
+      },
+    })
+  );
 
   if (!isProductionEnv) {
     server.use(errorHandler());
@@ -193,10 +191,15 @@ export default function httpService({
   });
 
   Promise.all(Object.values(connectServices)).then(() => {
-    server.listen(server.get('port'), () => {
-      logger.info('Started on port %d in %s mode',
-        server.get('port'), server.get('env'));
-    });
+    // prevent EADDRINUSE error when watching tests or used with async test runners
+    !module.parent
+      && server.listen(server.get('port'), () => {
+        logger.info(
+          'Started on port %d in %s mode',
+          server.get('port'),
+          server.get('env')
+        );
+      });
   });
 
   return {
